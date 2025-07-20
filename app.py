@@ -29,29 +29,35 @@ def show_links():
 
 @app.route('/search/')
 def search():
-    name = request.args.get('s')
-    year = request.args.get('y')
-    type_ = request.args.get('t')
-    gen = request.args.get('g')
+    try:
+        name = request.args.get('s')
+        year = request.args.get('y')
+        type_ = request.args.get('t')
+        gen = request.args.get('g')
 
-    f = filmyzilla(base_urls['f'])
-    f_data = f.search(name,year,type_,gen)
+        f = filmyzilla(base_urls['f'])
+        f_data = f.search(name,year,type_,gen)
 
-    b = Bolly(base_urls['b'])
-    b_data = b.search(name)
+        b = Bolly(base_urls['b'])
+        b_data = b.search(name)
 
-    k = Kat(base_urls['k'])
-    k_data = k.search(name)
+        k = Kat(base_urls['k'])
+        k_data = k.search(name)
 
-    m = MovieNation(base_urls['m'])
-    m_data = m.search(name)
-    final = {
-        'filmyzilla':f_data,
-        'boll':b_data,
-        'kat':k_data,
-        'movienation':m_data,
-    }
-    return jsonify(final)
+        m = MovieNation(base_urls['m'])
+        m_data = m.search(name)
+    
+        final = {
+            'filmyzilla':f_data,
+            'boll':b_data,
+            'kat':k_data,
+            'movienation':m_data,
+        }
+        return jsonify(final)
+    except Exception as e:
+        # Print error to log and return it in response
+        print("Error in /search route:", e)
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/config', methods=['POST'])
