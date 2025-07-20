@@ -24,7 +24,7 @@ class filmyzilla:
             }
         }
     def newUrl(self,year,type_,gen):
-        page = req.get(self.base+self.fillmyzilla[type_][gen])
+        page = req.get(self.base+self.fillmyzilla[type_][gen], verify=False)
         soup = bs(page.text,'html.parser')
         div = soup.find_all('div',class_ = 'touch')
         for i in div:
