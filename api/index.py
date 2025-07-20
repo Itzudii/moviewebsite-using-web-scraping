@@ -1,1 +1,1 @@
-from app import app as application  # Import your Flask app
+from app import app as app
