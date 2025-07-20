@@ -2,6 +2,8 @@ import requests as req
 from bs4 import BeautifulSoup as bs
 import re
 from Triekit import Trie
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class filmyzilla:
@@ -42,7 +44,7 @@ class filmyzilla:
             url = self.base+self.newUrl(year,type_,gen)+f'alphabet/{name[0].lower()}'
         while True:
             index += 1
-            url_r = req.get(f'{url}/{index}.html')
+            url_r = req.get(f'{url}/{index}.html', verify=False)
             soup = bs(url_r.text,'html.parser')
             a = soup.find_all('a',class_ = 'filmyvideo')
             if a:
