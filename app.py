@@ -19,7 +19,9 @@ with open('baselinks.json', 'r') as file:
 #     'k':'https://katmoviehd.blue/',
 #     'm':'https://moviesnation.onl/',
 # }
-
+@app.route('/')
+def home():
+    return "WELCOME to my api"
 
 @app.route('/links/')
 def show_links():
