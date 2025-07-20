@@ -28,7 +28,7 @@ class filmyzilla:
         for i in div:
             v = i.find('a')
             try:
-               if re.search('\d+',v.text).group() == str(year):
+               if re.search(r'\d+',v.text).group() == str(year):
                    return v['href'].replace(self.base,'').replace('default/1.html','')
             except:
                 f''
@@ -49,7 +49,7 @@ class filmyzilla:
                 for i in a:
                     img = i.find('img')
                     text = img['alt']
-                    name_ = re.match('\w+',text.replace(' ','')).group().lower()
+                    name_ = re.match(r'\w+',text.replace(' ','')).group().lower()
                     box.insert(name_)
                     fetchdata[hash(name_)] = {'link':i['href'],'title':text,'img':self.base+img['src']}
             else:
